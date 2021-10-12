@@ -1,22 +1,27 @@
-package ai.kyp.islands;
+package ai.kyp.islands.service;
 
-public class IslandsArea {
+/**
+ * Counts the number of island areas on given map.
+ */
+public class IslandsAreaService {
 
     private final byte[][] map;
     private final int height;
     private final int width;
 
-    public IslandsArea(byte[][] map) {
+    public IslandsAreaService(byte[][] map) {
         this.map = map;
         this.height = map.length;
-        this.width = map[0].length;
-        if ((long) this.height * this.width > 10_000_000_000L) {
+        this.width = this.height == 0 ? 0 : map[0].length;
+
+        if ((long) this.height * this.width > 100_000_000L) {
             throw new IllegalArgumentException("Given map is too large!");
         }
     }
 
     public int countIslands() {
         int islandsCount = 0;
+
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
                 if (map[y][x] == -1) {

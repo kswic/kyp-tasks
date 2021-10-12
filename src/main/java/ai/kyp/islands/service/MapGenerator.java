@@ -1,13 +1,17 @@
-package ai.kyp.islands;
+package ai.kyp.islands.service;
 
 import java.util.Random;
 
+/**
+ * Generate maps of given size with different number of islands.
+ */
 public class MapGenerator {
 
+    private final Random random = new Random();
     private final int height;
     private final int width;
 
-    public MapGenerator(int height, int width) {
+    MapGenerator(int height, int width) {
         this.height = height;
         this.width = width;
         if ((long) this.height * this.width > 10_000_000_000L) {
@@ -16,7 +20,6 @@ public class MapGenerator {
     }
 
     byte[][] generateMap(int numOfIslands) {
-
         byte[][] map = new byte[height][width];
 
         for (int y = 0; y < height; y++) {
@@ -24,8 +27,6 @@ public class MapGenerator {
                 map[y][x] = 0;
             }
         }
-
-        Random random = new Random();
 
         while (numOfIslands > 0) {
             int y = random.nextInt(height);

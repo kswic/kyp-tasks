@@ -1,4 +1,4 @@
-package ai.kyp.taskqueue;
+package ai.kyp.taskqueue.service;
 
 public interface ExpressionSolver {
 

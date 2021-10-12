@@ -1,10 +1,11 @@
-package ai.kyp.taskqueue;
+package ai.kyp.taskqueue.task;
 
+import ai.kyp.taskqueue.service.ExpressionSolver;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.concurrent.BlockingQueue;
 
-import static ai.kyp.taskqueue.TaskProducer.STOP_PRODUCING_MESSAGE;
+import static ai.kyp.taskqueue.task.TaskProducer.STOP_PRODUCING_MESSAGE;
 
 @Slf4j
 public class TaskConsumer extends Thread {
@@ -17,6 +18,7 @@ public class TaskConsumer extends Thread {
         this.expressionSolver = expressionSolver;
     }
 
+    @Override
     public void run() {
         while (true) {
             try {
@@ -27,7 +29,7 @@ public class TaskConsumer extends Thread {
                 }
                 Double result = expressionSolver.solve(computationExpression);
                 log.info("Expression '{}' result is: {}", computationExpression, result);
-            } catch (Exception e) {
+            } catch (InterruptedException e) {
                 log.error("TaskConsumer exception", e);
             }
         }

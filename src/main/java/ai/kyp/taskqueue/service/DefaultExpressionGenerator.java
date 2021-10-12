@@ -1,14 +1,14 @@
-package ai.kyp.taskqueue;
+package ai.kyp.taskqueue.service;
 
 import java.util.Random;
 
 public class DefaultExpressionGenerator implements ExpressionGenerator {
 
-    public static final int MIN_COMPONENT_VALUE = 0;
-    public static final int MAX_COMPONENT_VALUE = 100_000;
-    public static final String[] OPERATIONS = new String[]{"+", "-", "*", "/"};
-    public static final int MAX_NUMBER_OF_OPERATIONS = 5;
-    public static final int MIN_NUMBER_OF_OPERATIONS = 1;
+    static final String[] OPERATIONS = new String[]{"+", "-", "*", "/"};
+    static final int MIN_COMPONENT_VALUE = 0;
+    static final int MAX_COMPONENT_VALUE = 100_000;
+    private static final int MAX_NUMBER_OF_OPERATIONS = 5;
+    private static final int MIN_NUMBER_OF_OPERATIONS = 1;
     private final Random random = new Random();
 
     @Override

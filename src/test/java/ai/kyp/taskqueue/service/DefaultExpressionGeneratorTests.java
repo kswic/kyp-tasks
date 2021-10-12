@@ -1,25 +1,25 @@
-package ai.kyp.taskqueue;
+package ai.kyp.taskqueue.service;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 
-import static ai.kyp.taskqueue.DefaultExpressionGenerator.OPERATIONS;
+import static ai.kyp.taskqueue.service.DefaultExpressionGenerator.OPERATIONS;
 
-public class DefaultExpressionGeneratorTests {
+class DefaultExpressionGeneratorTests {
 
     private final ExpressionGenerator expressionGenerator = new DefaultExpressionGenerator();
 
     @Test
-    public void shouldNotStartExpressionWithOperationSign() {
+    void shouldNotStartExpressionWithOperationSign() {
         String expression = expressionGenerator.generate();
         Assertions.assertTrue(Arrays.stream(OPERATIONS).noneMatch(expression::startsWith));
         Assertions.assertTrue(Arrays.stream(OPERATIONS).noneMatch(expression::endsWith));
     }
 
     @Test
-    public void shouldContainAtLeastOneOperation() {
+    void shouldContainAtLeastOneOperation() {
         String expression = expressionGenerator.generate();
         Assertions.assertTrue(Arrays.stream(OPERATIONS).anyMatch(expression::contains));
     }

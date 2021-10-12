@@ -1,8 +1,11 @@
-package ai.kyp.taskqueue;
+package ai.kyp.taskqueue.service;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Custom solver for basic arithmetic expressions. Used as default implementation of {@link ExpressionSolver}
+ */
 public class DefaultExpressionSolver implements ExpressionSolver {
 
     public static final String HIGH_PRIORITY_OPERATIONS_REGEX = "(\\d+\\.?\\d*(E-?\\d+\\.?\\d*)?|Infinity)([\\\\*/]+)(\\d+\\.?\\d*(E-?\\d+\\.?\\d*)?|Infinity)";
