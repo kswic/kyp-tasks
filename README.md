@@ -33,6 +33,8 @@ Solution has been located in ai.kyp.taskqueue package which contains:
 - TaskConsumer and TaskProducer - thread classes for producing and consuming tasks which are simple strings with expressions to compute
 - TaskQueueRunner - application running task queue, tasks are put in 'BlockingQueue' by two producers and consumed by four consumers. Default size of the queue is 10.
 
+TaskQueueRunner can be run with params defining a number of producers, consumers and math expressions per consumer respectively. When run without arguments then uses defaults: 2 producers, 4 consumers and 10 random math expressions per consumer.
+
 ---
 
 #### Tasks to implement

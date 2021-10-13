@@ -7,6 +7,9 @@ import java.util.concurrent.BlockingQueue;
 
 import static ai.kyp.taskqueue.task.TaskProducer.STOP_PRODUCING_MESSAGE;
 
+/**
+ * Consumes tasks taken from the queue.
+ */
 @Slf4j
 public class TaskConsumer extends Thread {
 
@@ -31,6 +34,7 @@ public class TaskConsumer extends Thread {
                 log.info("Expression '{}' result is: {}", computationExpression, result);
             } catch (InterruptedException e) {
                 log.error("TaskConsumer exception", e);
+                Thread.currentThread().interrupt();
             }
         }
     }

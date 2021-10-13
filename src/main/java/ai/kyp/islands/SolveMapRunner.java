@@ -8,6 +8,9 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Scanner;
 
+/**
+ * Example of application counting islands on map.
+ */
 public class SolveMapRunner {
 
     public static final String VALUE_DELIMITER = " ";

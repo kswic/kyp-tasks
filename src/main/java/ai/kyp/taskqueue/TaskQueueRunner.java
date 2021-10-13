@@ -1,29 +1,34 @@
 package ai.kyp.taskqueue;
 
-import ai.kyp.taskqueue.service.DefaultExpressionGenerator;
-import ai.kyp.taskqueue.service.DefaultExpressionSolver;
-import ai.kyp.taskqueue.service.ExpressionGenerator;
-import ai.kyp.taskqueue.service.ExpressionSolver;
-import ai.kyp.taskqueue.task.TaskConsumer;
-import ai.kyp.taskqueue.task.TaskProducer;
+import ai.kyp.taskqueue.task.factory.TaskConsumersFactory;
+import ai.kyp.taskqueue.task.factory.TaskProducersFactory;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
+/**
+ * Example app implementing producer-consumer pattern.
+ */
+@Slf4j
 public class TaskQueueRunner {
 
     public static final int QUEUE_CAPACITY = 10;
 
-    private static final ExpressionGenerator expressionGenerator = new DefaultExpressionGenerator();
-    private static final ExpressionSolver expressionSolver = new DefaultExpressionSolver();
-
     public static void main(String[] args) {
         BlockingQueue<String> computationQueue = new ArrayBlockingQueue<>(QUEUE_CAPACITY);
-        new TaskConsumer(computationQueue, expressionSolver).start();
-        new TaskConsumer(computationQueue, expressionSolver).start();
-        new TaskConsumer(computationQueue, expressionSolver).start();
-        new TaskConsumer(computationQueue, expressionSolver).start();
-        new TaskProducer(computationQueue, expressionGenerator).start();
-        new TaskProducer(computationQueue, expressionGenerator).start();
+
+        if (args.length == 3) {
+            int producersCount = Integer.parseInt(args[0]);
+            int consumersCount = Integer.parseInt(args[1]);
+            int expressionsCount = Integer.parseInt(args[2]);
+
+            TaskConsumersFactory.createConsumers(consumersCount, computationQueue).forEach(Thread::start);
+            TaskProducersFactory.createProducers(producersCount, expressionsCount, consumersCount, computationQueue).forEach(Thread::start);
+        } else {
+            log.warn("Wrong number of arguments, running for defaults (2 producers, 4 consumers, 10 math expressions per producer)");
+            TaskConsumersFactory.createDefaultConsumers(computationQueue).forEach(Thread::start);
+            TaskProducersFactory.createDefaultProducers(computationQueue).forEach(Thread::start);
+        }
     }
 }
